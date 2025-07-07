@@ -33,6 +33,8 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.mosaicapplication.mosaicapp.R
@@ -70,7 +72,7 @@ fun SignUp(navController: NavController) {
         OutlinedTextField(
             value = fullname,
             onValueChange = { fullname = it },
-            label = { Text("Email/phone number", fontStyle = FontStyle.Italic) },
+            label = { Text("fullname", fontStyle = FontStyle.Italic) },
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.Start)
@@ -91,7 +93,7 @@ fun SignUp(navController: NavController) {
         OutlinedTextField(
             value = phonenumber,
             onValueChange = { phonenumber = it },
-            label = { Text("Email/phone number", fontStyle = FontStyle.Italic) },
+            label = { Text("phonenumber", fontStyle = FontStyle.Italic) },
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.Start)
@@ -112,7 +114,7 @@ fun SignUp(navController: NavController) {
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Email/phone number", fontStyle = FontStyle.Italic) },
+            label = { Text("email", fontStyle = FontStyle.Italic) },
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.Start)
@@ -134,13 +136,15 @@ fun SignUp(navController: NavController) {
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Email/phone number", fontStyle = FontStyle.Italic) },
+            label = { Text("Password", fontStyle = FontStyle.Italic) },
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.Start)
                 .padding(start = 16.dp, end = 16.dp),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-        )
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            visualTransformation = PasswordVisualTransformation(),
+            singleLine = true,
+
+            )
         Spacer(modifier = Modifier.height(10.dp))
 
         Text(
@@ -156,13 +160,15 @@ fun SignUp(navController: NavController) {
         OutlinedTextField(
             value = confirmPassword,
             onValueChange = { confirmPassword = it },
-            label = { Text("Email/phone number", fontStyle = FontStyle.Italic) },
+            label = { Text("confirmpassword", fontStyle = FontStyle.Italic) },
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.Start)
                 .padding(start = 16.dp, end = 16.dp),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-        )
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            visualTransformation = PasswordVisualTransformation(),
+            singleLine = true,
+
+            )
 
 
         var termsChecked by remember { mutableStateOf(false) }
@@ -358,7 +364,10 @@ fun Authentication(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            visualTransformation = PasswordVisualTransformation(),
+            singleLine = true,
+
         )
         Spacer(modifier = Modifier.height(1.dp))
         TextButton(
@@ -694,12 +703,15 @@ fun ResetPassword(navController: NavController) {
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Enter new password", fontStyle = FontStyle.Italic) },
+            label = { Text("Password", fontStyle = FontStyle.Italic) },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, end= 16.dp),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-        )
+                .padding(start = 16.dp, end = 16.dp),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            visualTransformation = PasswordVisualTransformation(),
+            singleLine = true,
+
+            )
         Spacer(modifier = Modifier.height(20.dp))
         Text(
             text = "Confirm password",
@@ -714,12 +726,15 @@ fun ResetPassword(navController: NavController) {
         OutlinedTextField(
             value = confirmPassword,
             onValueChange = { confirmPassword = it },
-            label = { Text("Confirm password", fontStyle = FontStyle.Italic) },
+            label = { Text("confirmpassword", fontStyle = FontStyle.Italic) },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, end= 16.dp),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-        )
+                .padding(start = 16.dp, end = 16.dp),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            visualTransformation = PasswordVisualTransformation(),
+            singleLine = true,
+
+            )
         Spacer(modifier = Modifier.height(100.dp))
         Button(
             onClick = {  },
