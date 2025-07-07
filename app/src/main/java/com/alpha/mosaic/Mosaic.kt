@@ -54,8 +54,7 @@ fun SignUp(navController: NavController) {
             painter = painterResource(id = R.drawable.mosaicsignup),
             contentDescription = "mosaicSignUp",
             modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.25f),
+                .fillMaxWidth(),
             contentScale = ContentScale.FillWidth
         )
         Spacer(modifier = Modifier.height(1.dp))
@@ -71,14 +70,14 @@ fun SignUp(navController: NavController) {
         OutlinedTextField(
             value = fullname,
             onValueChange = { fullname = it },
-            placeholder = { Text("Enter full name") },
+            label = { Text("Email/phone number", fontStyle = FontStyle.Italic) },
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.Start)
                 .padding(start = 16.dp, end = 16.dp)
 
         )
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         Text(
             text = "Phone Number",
@@ -92,14 +91,14 @@ fun SignUp(navController: NavController) {
         OutlinedTextField(
             value = phonenumber,
             onValueChange = { phonenumber = it },
-            placeholder = { Text("Enter phone number") },
+            label = { Text("Email/phone number", fontStyle = FontStyle.Italic) },
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.Start)
                 .padding(start = 16.dp, end = 16.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
         )
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         Text(
             text = "Email",
@@ -113,14 +112,14 @@ fun SignUp(navController: NavController) {
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            placeholder = { Text("Enter email") },
+            label = { Text("Email/phone number", fontStyle = FontStyle.Italic) },
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.Start)
                 .padding(start = 16.dp, end = 16.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
         )
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         Text(
             text = "Password",
@@ -135,14 +134,14 @@ fun SignUp(navController: NavController) {
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            placeholder = { Text("Enter password") },
+            label = { Text("Email/phone number", fontStyle = FontStyle.Italic) },
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.Start)
                 .padding(start = 16.dp, end = 16.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
         )
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         Text(
             text = "Confirm Password",
@@ -157,21 +156,21 @@ fun SignUp(navController: NavController) {
         OutlinedTextField(
             value = confirmPassword,
             onValueChange = { confirmPassword = it },
-            placeholder = { Text("Confirm password") },
+            label = { Text("Email/phone number", fontStyle = FontStyle.Italic) },
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.Start)
                 .padding(start = 16.dp, end = 16.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
         )
-        Spacer(modifier = Modifier.height(1.dp))
+
 
         var termsChecked by remember { mutableStateOf(false) }
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp, start = 6.dp)
+                .padding(bottom = 7.dp, start = 6.dp)
         ) {
             Checkbox(
                 checked = termsChecked,
@@ -206,7 +205,7 @@ fun SignUp(navController: NavController) {
             Text("Sign Up", color = Color.White, fontSize = 25.sp)
 
         }
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(7.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
