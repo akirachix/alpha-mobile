@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-<<<<<<< HEAD
     <style name="Theme.Mosaic" parent="android:Theme.Material.Light.NoActionBar" />
-=======
-    <style name="Theme.MosaicApp" parent="android:Theme.Material.Light.NoActionBar" />
->>>>>>> 880b41676385f96f4d673b6e8ce1c84d1b731c94
+
 </resources>
