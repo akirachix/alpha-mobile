@@ -1,47 +1,31 @@
-package com.mosaicapplication.mosaicapp
 
+package com.mosaicapplication.mosaicapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.*
 import com.mosaicapplication.mosaicapp.ui.theme.MosaicAppTheme
-
+import com.mosaicapplication.mosaicapp.ui.screens.ForgotPasswordScreen
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             MosaicAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                AppNavigation()
             }
         }
     }
 }
-
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun AppNavigation() {
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "forgot_password") {
+        composable("forgot_password") {
+            ForgotPasswordScreen()
+        }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MosaicAppTheme {
-        Greeting("Android")
     }
 }
