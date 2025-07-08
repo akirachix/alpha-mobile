@@ -63,6 +63,7 @@ fun SignUp(navController: NavController) {
         Text(
             text = "Full Name",
             fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
             color = Color(131, 66, 7),
             modifier = Modifier
                 .align(Alignment.Start)
@@ -84,6 +85,7 @@ fun SignUp(navController: NavController) {
         Text(
             text = "Phone Number",
             fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
             color = Color(131, 66, 7),
             modifier = Modifier
                 .align(Alignment.Start)
@@ -105,6 +107,7 @@ fun SignUp(navController: NavController) {
         Text(
             text = "Email",
             fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
             color = Color(131, 66, 7),
             modifier = Modifier
                 .align(Alignment.Start)
@@ -126,6 +129,7 @@ fun SignUp(navController: NavController) {
         Text(
             text = "Password",
             fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
             color = Color(131, 66, 7),
             modifier = Modifier
                 .fillMaxWidth()
@@ -140,7 +144,7 @@ fun SignUp(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             visualTransformation = PasswordVisualTransformation(),
             singleLine = true,
 
@@ -150,6 +154,7 @@ fun SignUp(navController: NavController) {
         Text(
             text = "Confirm Password",
             fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
             color = Color(131, 66, 7),
             modifier = Modifier
                 .fillMaxWidth()
@@ -164,7 +169,7 @@ fun SignUp(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             visualTransformation = PasswordVisualTransformation(),
             singleLine = true,
 
@@ -334,6 +339,7 @@ fun Authentication(navController: NavController) {
             style = MaterialTheme.typography.headlineSmall,
             color = Color(0xFF834207),
             fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .align(Alignment.Start)
                 .padding(start = 16.dp, end = 16.dp)
@@ -353,6 +359,7 @@ fun Authentication(navController: NavController) {
             style = MaterialTheme.typography.headlineSmall,
             color = Color(0xFF834207),
             fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .align(Alignment.Start)
                 .padding(start = 16.dp, end = 16.dp)
@@ -364,7 +371,7 @@ fun Authentication(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             visualTransformation = PasswordVisualTransformation(),
             singleLine = true,
 
@@ -436,9 +443,13 @@ fun ForgotPasswordScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(32.dp))
         TitleText(modifier = Modifier.align(Alignment.CenterHorizontally))
         Spacer(modifier = Modifier.height(45.dp))
-        InstructionText(modifier = Modifier.align(Alignment.CenterHorizontally).padding(horizontal = 20.dp))
+        InstructionText(modifier = Modifier
+            .align(Alignment.CenterHorizontally)
+            .padding(horizontal = 20.dp))
         Spacer(modifier = Modifier.height(32.dp))
-        EmailLabel(modifier = Modifier.align(Alignment.Start).padding(start = 20.dp, top = 5.dp))
+        EmailLabel(modifier = Modifier
+            .align(Alignment.Start)
+            .padding(start = 20.dp, top = 5.dp))
         EmailInputField(email = email, onValueChange = { email = it })
         Spacer(modifier = Modifier.height(50.dp))
         ContinueButton(navController)
@@ -696,6 +707,7 @@ fun ResetPassword(navController: NavController) {
             style = MaterialTheme.typography.headlineSmall,
             color = Color(0xFF834207),
             fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .align(Alignment.Start)
                 .padding(start = 16.dp),
@@ -707,7 +719,7 @@ fun ResetPassword(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             visualTransformation = PasswordVisualTransformation(),
             singleLine = true,
 
@@ -718,6 +730,7 @@ fun ResetPassword(navController: NavController) {
             style = MaterialTheme.typography.headlineSmall,
             color = Color(0xFF834207),
             fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .align(Alignment.Start)
                 .padding(start = 16.dp),
@@ -730,7 +743,7 @@ fun ResetPassword(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             visualTransformation = PasswordVisualTransformation(),
             singleLine = true,
 
@@ -754,10 +767,11 @@ fun ResetPassword(navController: NavController) {
         }
         Spacer(modifier = Modifier.height(30.dp))
         Button(
-            onClick = { navController.popBackStack() },
+            onClick = { navController.navigate("Authentication") },
             modifier = Modifier
                 .size(width = 350.dp, height = 58.dp)
                 .border(BorderStroke(3.dp, Color(0xFF834207))),
+            shape = RoundedCornerShape(10.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Transparent,
                 contentColor = Color.Black
