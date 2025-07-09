@@ -1,31 +1,34 @@
 
 package com.mosaicapplication.mosaicapp
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+
 import androidx.compose.runtime.Composable
-import androidx.navigation.compose.*
-import com.mosaicapplication.mosaicapp.ui.theme.MosaicAppTheme
-import com.mosaicapplication.mosaicapp.ui.screens.ForgotPasswordScreen
+
+import androidx.compose.ui.tooling.preview.Preview
+
+import androidx.navigation.compose.rememberNavController
+
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MosaicAppTheme {
-                AppNavigation()
-            }
+            val navController = rememberNavController()
+            AppNavigation(navController = navController)
         }
     }
 }
-@Composable
-fun AppNavigation() {
-    val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "forgot_password") {
-        composable("forgot_password") {
-            ForgotPasswordScreen()
-        }
 
-    }
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun ScreenNavHostPreview(){
+    val navController = rememberNavController()
+    AppNavigation(navController = navController)
 }
+
+

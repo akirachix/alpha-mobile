@@ -5,11 +5,13 @@ plugins {
 }
 
 android {
+
     namespace = "com.mosaicapplication.mosaicapp"
     compileSdk = 36
 
     defaultConfig {
         applicationId = "com.mosaicapplication.mosaicapp"
+
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -37,6 +39,10 @@ android {
     buildFeatures {
         compose = true
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.14" // Compatible with Compose 1.6.x
+    }
 }
 
 dependencies {
@@ -49,6 +55,9 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
+    implementation(libs.androidx.navigation.compose) // Use stable version
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -56,5 +65,5 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    implementation("androidx.navigation:navigation-compose:2.7.5")
+
 }

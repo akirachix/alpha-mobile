@@ -19,5 +19,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Mosaic App"
 include(":app")
+rootProject.name = "Mosaic App"
+
+ 
