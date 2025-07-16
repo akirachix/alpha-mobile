@@ -1,9 +1,5 @@
 package com.mosaicapplication.mosaicapp.ui.screens
 
-import android.text.Layout
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.LinearOutSlowInEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -11,7 +7,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
@@ -29,7 +24,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -55,13 +49,14 @@ import androidx.navigation.compose.rememberNavController
 import com.mosaicapplication.mosaicapp.R
 import com.mosaicapplication.mosaicapp.ui.theme.AboretoFontFamily
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
 import kotlinx.coroutines.delay
 
 
 @Composable
 fun LaunchScreen(navController: NavController) {
     LaunchedEffect(Unit) {
-        delay(3000)
+        delay(2500)
         navController.navigate("MosaicWelcomeScreen") {
             popUpTo("launch") { inclusive = true }
         }
@@ -840,11 +835,11 @@ fun ChooseRoleScreen(navController: NavController) {
         Image(
             painter = painterResource(id = R.drawable.chooseuserimage),
             contentDescription = "Model Image",
-            contentScale = ContentScale.Crop,
+            contentScale = ContentScale.FillBounds,
             modifier = Modifier
                 .height(430.dp)
-                .width(400.dp)
                 .clip(RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp))
+                .fillMaxSize()
         )
         Column(
             modifier = Modifier
@@ -860,7 +855,7 @@ fun ChooseRoleScreen(navController: NavController) {
                 style = MaterialTheme.typography.headlineMedium,
                 color = Color((0xFF7A3E11)),
                 fontSize = 25.sp,
-                fontWeight = FontWeight.Medium,
+                fontWeight = FontWeight.SemiBold,
                 fontFamily = AboretoFontFamily,
 
                 )
@@ -878,6 +873,7 @@ fun ChooseRoleScreen(navController: NavController) {
                     fontSize = 25.sp,
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
+
                 )
             }
             Spacer(modifier = Modifier.height(40.dp))
