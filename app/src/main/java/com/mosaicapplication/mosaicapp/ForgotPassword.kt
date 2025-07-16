@@ -1,5 +1,9 @@
 package com.mosaicapplication.mosaicapp.ui.screens
 
+import android.text.Layout
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -7,7 +11,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -26,19 +29,63 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.ui.unit.Dp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mosaicapplication.mosaicapp.R
+import com.mosaicapplication.mosaicapp.ui.theme.AboretoFontFamily
+import androidx.compose.runtime.LaunchedEffect
+import kotlinx.coroutines.delay
 
+
+@Composable
+fun LaunchScreen(navController: NavController) {
+    LaunchedEffect(Unit) {
+        delay(3000)
+        navController.navigate("MosaicWelcomeScreen") {
+            popUpTo("launch") { inclusive = true }
+        }
+    }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.launcherimg),
+            contentDescription = "Model Wearing Pants",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(990.dp)
+
+        )
+        Image(painter = painterResource(id = R.drawable.mosaiclogo),
+            contentDescription = "Mosaic logo",
+            modifier = Modifier
+                .fillMaxWidth().fillMaxHeight()
+
+        )
+    }
+}
 
 @Composable
 fun SignUp(navController: NavController) {
@@ -165,7 +212,7 @@ fun SignUp(navController: NavController) {
         OutlinedTextField(
             value = confirmPassword,
             onValueChange = { confirmPassword = it },
-            label = { Text("confirmpassword", fontStyle = FontStyle.Italic) },
+            label = { Text("Confirmpassword", fontStyle = FontStyle.Italic) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp),
@@ -196,7 +243,7 @@ fun SignUp(navController: NavController) {
         }
 
         Button(
-            onClick = { },
+            onClick = {navController.navigate("Authentication")},
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.Start)
@@ -375,7 +422,7 @@ fun Authentication(navController: NavController) {
             visualTransformation = PasswordVisualTransformation(),
             singleLine = true,
 
-        )
+            )
         Spacer(modifier = Modifier.height(1.dp))
         TextButton(
             onClick = { navController.navigate("ForgotPasswordScreen") },
@@ -391,7 +438,7 @@ fun Authentication(navController: NavController) {
         }
         Spacer(modifier = Modifier.height(80.dp))
         Button(
-            onClick = {  },
+            onClick = { navController.navigate("HomePage")},
             modifier = Modifier
                 .size(width = 377.dp, height = 58.dp),
             shape = RoundedCornerShape(10.dp),
@@ -399,7 +446,8 @@ fun Authentication(navController: NavController) {
                 containerColor = Color(0xFF834207),
                 contentColor = Color.White,
                 disabledContainerColor = Color(0xFF834207).copy(alpha = 0.5f),
-                disabledContentColor = Color.White
+                disabledContentColor = Color.White,
+
             ),
             enabled = phonenumber.isNotBlank() && password.isNotBlank()
         ) {
@@ -782,7 +830,644 @@ fun ResetPassword(navController: NavController) {
     }
 }
 
+@Composable
+fun ChooseRoleScreen(navController: NavController) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
 
+        Image(
+            painter = painterResource(id = R.drawable.chooseuserimage),
+            contentDescription = "Model Image",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .height(430.dp)
+                .width(400.dp)
+                .clip(RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp))
+        )
+        Column(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .fillMaxWidth()
+                .background(Color.White, shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                .padding(vertical = 32.dp, horizontal = 24.dp)
+                .padding(bottom = 100.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "SELECT USER TYPE",
+                style = MaterialTheme.typography.headlineMedium,
+                color = Color((0xFF7A3E11)),
+                fontSize = 25.sp,
+                fontWeight = FontWeight.Medium,
+                fontFamily = AboretoFontFamily,
+
+                )
+            Spacer(modifier = Modifier.height(40.dp))
+            Button(
+                onClick = { navController.navigate("SignUp")},
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(65.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7A3E11)),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Text(
+                    text = "Trader",
+                    fontSize = 25.sp,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                )
+            }
+            Spacer(modifier = Modifier.height(40.dp))
+            Button(
+                onClick = { },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(65.dp),
+
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7A3E11)),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Text(
+                    text = "Designer",
+                    fontSize = 25.sp,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+    }
+}
+
+
+@Composable
+fun  HomePage(navController: NavController){
+    Column(modifier = Modifier.fillMaxSize()) {
+
+        Box(
+
+            modifier = Modifier
+                .fillMaxWidth()
+                .graphicsLayer{clip=false}
+                .height(200.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.homescreenimage),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
+            )
+            Text(
+                text = "MOSAIC",
+                style = MaterialTheme.typography.headlineMedium,
+                color = Color.Black,
+                fontSize = 39.sp,
+                fontWeight = FontWeight.Medium,
+                fontFamily = AboretoFontFamily,
+                modifier = Modifier.align(Alignment.Center),
+            )
+            Text(
+                text = "Trader",
+                color=Color.Black,
+                fontSize = 25.sp,
+                fontWeight = FontWeight.Medium,
+                fontFamily = AboretoFontFamily,
+                modifier = Modifier.offset(y=150.dp, x = 150.dp)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Image(
+                painter = painterResource(id = R.drawable.profileimage),
+                contentDescription = "Profile",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .size(80.dp)
+                    .offset(y=50.dp)
+                    .clip(CircleShape)
+            )
+        }
+
+        Spacer(modifier = Modifier.height(86.dp))
+        Card(
+            modifier = Modifier
+                .fillMaxWidth().clickable { navController.navigate("") }
+                .padding(horizontal = 16.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        ) {
+
+            Box(modifier = Modifier.fillMaxWidth().height(150.dp)) {
+                Image(
+                    painter = painterResource(id = R.drawable.trendyimg),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+                Text(
+                    text = "TRENDY FITS",
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = Color.White,
+                    fontFamily = AboretoFontFamily,
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(76.dp))
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        ) {
+
+            Box(modifier = Modifier.fillMaxWidth().height(150.dp)) {
+                Image(
+                    painter = painterResource(id = R.drawable.trackorder),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+                Text(
+                    text = "TRACK ORDER",
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontFamily = AboretoFontFamily,
+                    color = Color.White,
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        BottomAppBar(
+            modifier = Modifier.fillMaxWidth(),
+            containerColor = Color.White
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceAround,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Image(
+                        painter = painterResource(id=R.drawable.homeicon),
+                        contentDescription = "Orders Icon",
+                        modifier = Modifier .size(34.dp)
+                    )
+                    Text(text = "Orders", style = MaterialTheme.typography.labelSmall)
+
+                }
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Icon(Icons.Default.List, contentDescription = "Home", tint = Color(0xFF7A3E11))
+                    Text(text = "Orders", style = MaterialTheme.typography.labelSmall)
+
+                }
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Image(
+                        painter = painterResource(id=R.drawable.img),
+                        contentDescription = "Orders Icon",
+                        modifier = Modifier .size(34.dp)
+                    )
+                    Text(text = "Orders", style = MaterialTheme.typography.labelSmall)
+
+                }
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Icon(Icons.Default.ShoppingCart, contentDescription = "ShoppingCart", tint = Color(0xFF7A3E11),)
+                    Text(text = "Cart", style = MaterialTheme.typography.labelSmall)
+
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun TeaserScreenOne(navController: NavController) {
+    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
+    val imageHeight = screenHeight * 0.7f
+    val brown = Color(0xFF834207)
+    Spacer(modifier = Modifier.height(1.dp))
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+    ) {
+        ImageSec(imageHeight)
+        GetConnectedSection()
+        NavIconsSection(navController)
+
+    }
+}
+
+@Composable
+fun ImageSec(imageHeight: Dp) {
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(imageHeight),
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.teaserimageone),
+            contentDescription = "Onboarding Image",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop,
+            colorFilter = ColorFilter.tint(
+                Color(0xCCA0522D),
+                BlendMode.Multiply
+            )
+        )
+
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center,
+        )
+
+        {
+            Text(
+                text = "TRADER",
+                color = Color.White,
+                fontSize = 70.sp,
+                fontWeight = FontWeight.Normal,
+                fontFamily = AboretoFontFamily
+
+            )
+        }
+    }
+}
+
+@Composable
+fun GetConnectedSection() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.White)
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
+        Text(
+            text = "GET CONNECTED TO DESIGNERS " +
+                    "NEAR YOU AND IMPROVE YOUR"+
+                    "SECOND HAND CLOTHES",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = Color(0xFF834207),
+            lineHeight = 22.sp,
+            fontFamily = AboretoFontFamily
+        )
+        Spacer(modifier = Modifier.height(5.dp))
+    }
+}
+@Composable
+fun NavIconsSection(navController: NavController) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
+        Spacer(modifier = Modifier.height(24.dp))
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            horizontalArrangement = Arrangement.spacedBy(20.dp)
+        ) {
+
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Icon(
+                    Icons.Default.KeyboardArrowLeft,
+                    contentDescription = "Home",
+                    tint = Color(0xFF834207),
+                    modifier = Modifier.size(52.dp).clickable {navController.popBackStack()}
+                )
+            }
+            Spacer(modifier = Modifier.width(190.dp))
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Icon(
+                    Icons.Default.KeyboardArrowRight,
+                    contentDescription = "Home",
+                    tint = Color(0xFF834207),
+                    modifier = Modifier.size(52.dp).clickable {navController.navigate("DesignerTeaser")}
+
+                )
+
+            }
+            Spacer(modifier = Modifier.height(24.dp))
+        }
+    }
+}
+
+
+@Composable
+fun TeaserScreenTwo(navController: NavController) {
+    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
+    val imageHeight = screenHeight * 0.7f
+    val brown = Color(0xFF834207)
+    Spacer(modifier = Modifier.height(1.dp))
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+    ) {
+        ImageSection(imageHeight)
+        RefinedTasteSection()
+        PaginationAndJoinUsSection(navController)
+
+    }
+}
+
+@Composable
+fun ImageSection(imageHeight: Dp) {
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(imageHeight),
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.teaser),
+            contentDescription = "Onboarding Image",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop,
+            colorFilter = ColorFilter.tint(
+                Color(0xCCA0522D),
+                BlendMode.Multiply
+            )
+        )
+
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center,
+        )
+
+        {
+            Text(
+                text = "MOSAIC",
+                color = Color.White,
+                fontSize = 48.sp,
+                fontWeight = FontWeight.Medium,
+                fontFamily = AboretoFontFamily
+
+            )
+        }
+    }
+}
+
+@Composable
+fun RefinedTasteSection() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.White)
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
+        Text(
+            text = "Refined Taste: Where fashion meets creativity and culture. " +
+                    "Join us to explore the elegance in every detail.",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = Color(0xFF834207),
+            lineHeight = 22.sp,
+            fontFamily = AboretoFontFamily
+        )
+        Spacer(modifier = Modifier.height(5.dp))
+    }
+}
+
+@Composable
+fun DesignerTeaser(navController: NavController) {
+    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
+    val imageHeight = screenHeight * 0.7f
+    val brown = Color(0xFF834207)
+    Spacer(modifier = Modifier.height(1.dp))
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+    ) {
+        DesignerImageSec(imageHeight)
+        LessTrashSection()
+        NavSection(navController)
+
+    }
+}
+
+@Composable
+fun DesignerImageSec(imageHeight: Dp) {
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(imageHeight),
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.designerteaser),
+            contentDescription = "Onboarding Image",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop,
+            colorFilter = ColorFilter.tint(
+                Color(0xCCA0522D),
+                BlendMode.Multiply
+            )
+        )
+
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center,
+        )
+
+        {
+            Text(
+                text = "DESIGNER",
+                color = Color.White,
+                fontSize = 70.sp,
+                fontWeight = FontWeight.Normal,
+                fontFamily = AboretoFontFamily
+
+            )
+        }
+    }
+}
+
+@Composable
+fun LessTrashSection() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.White)
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
+        Text(
+            text = "LESS TRASH MORE TALENT \n" +
+                    "WE ARE NOW A CREATIVE HUB \n" +
+                    "THAT CELEBRATES AND SUPPORTS \n" +
+                    "THE ART OF DESIGN",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = Color(0xFF834207),
+            lineHeight = 22.sp,
+            fontFamily = AboretoFontFamily
+        )
+        Spacer(modifier = Modifier.height(5.dp))
+    }
+}
+
+@Composable
+fun NavSection(navController: NavController) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
+        Spacer(modifier = Modifier.height(15.dp))
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            horizontalArrangement = Arrangement.spacedBy(20.dp)
+        ) {
+
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Icon(
+                    Icons.Default.KeyboardArrowLeft,
+                    contentDescription = "Home",
+                    tint = Color(0xFF834207),
+                    modifier = Modifier.size(52.dp).clickable {navController.popBackStack()}
+                )
+            }
+            Spacer(modifier = Modifier.width(190.dp))
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Icon(
+                    Icons.Default.KeyboardArrowRight,
+                    contentDescription = "Home",
+                    tint = Color(0xFF834207),
+                    modifier = Modifier.size(52.dp).clickable {navController.navigate("TeaserScreenTwo")}
+
+                )
+
+            }
+            Spacer(modifier = Modifier.height(24.dp))
+        }
+    }
+}
+@Composable
+fun MosaicWelcomeScreen(navController: NavController) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFFD6D0CC))
+    ) {
+
+        Image(
+            painter = painterResource(id = R.drawable.pantss),
+            contentDescription = "Model Wearing Pants",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(24.dp)
+
+        ) {
+
+            Column {
+                Text(
+                    text = "-WELCOME",
+                    fontSize = 18.sp,
+                    color = Color.White,
+                    fontFamily = FontFamily.Serif
+                )
+                Spacer(modifier = Modifier.height(200.dp))
+                Text(
+                    text = "MOSAIC",
+                    fontSize = 70.sp,
+                    color = Color.White,
+                    fontFamily = AboretoFontFamily,
+                    modifier = Modifier.offset(x = 40.dp, y=20.dp))
+
+            }
+            Spacer(modifier = Modifier.height(146.dp))
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color(0xCCB79B83), shape = RoundedCornerShape(4.dp))
+                    .padding(20.dp)
+            ) {
+                Text(
+                    text = "GET YOUR SECOND \n" +
+                            "HAND CLOTHES\n" +
+                            "REDESIGNED BY THE BEST \n" +
+                            "WITH THE BEST\n" +
+                            "PRICES. VIEW DESIGNS \n" +
+                            "AND TAKE A PICK OF \n" +
+                            "YOUR FAVORITE.",
+                    fontSize = 25.sp,
+                    color = Color.White,
+                    fontFamily = AboretoFontFamily,
+                    lineHeight = 30.sp
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Row(
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    horizontalArrangement = Arrangement.spacedBy(20.dp)
+                ) {
+
+                    Spacer(modifier = Modifier.width(170.dp))
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Icon(Icons.Default.ArrowForward,
+                            contentDescription = "Home", tint = Color.White,
+                            modifier = Modifier.size(42.dp).clickable { navController.navigate("TeaserScreenOne")})
+
+                    }
+
+
+                }
+            }
+        }
+    }
+}
+@Composable
+fun PaginationAndJoinUsSection(navController: NavController) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Button(
+            onClick =  {navController.navigate("ChooseRoleScreen")},
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF834207)),
+            shape = MaterialTheme.shapes.medium,
+
+            modifier = Modifier
+                .height(50.dp)
+                .width(150.dp)
+
+        ) {
+            Text(text = "Join Us", color = Color.White, fontSize = 24.sp)
+        }
+        Spacer(modifier = Modifier.height(24.dp))
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun LaunchScreenPreview(){
+    LaunchScreen(navController=rememberNavController())
+}
 
 
 @Preview(showBackground = true)
@@ -810,15 +1495,49 @@ fun ForgotPasswordScreenPreview() {
     ForgotPasswordScreen(navController = rememberNavController())
 }
 
+@Preview(showBackground = true)
+@Composable
+fun DesignerTeaserPreview() {
+    DesignerTeaser(navController = rememberNavController())
+}
 
 @Preview(showBackground = true)
 @Composable
 fun VerifyCodePreview() {
     VerifyCode(navController = rememberNavController())
 }
+@Preview(showBackground = true)
+@Composable
+fun TeaserScreenOnePreview(){
+    TeaserScreenOne(navController = rememberNavController())
+}
+
+@Preview(showBackground = true)
+@Composable
+fun TeaserScreenTwoPreview(){
+    TeaserScreenTwo(navController = rememberNavController())
+}
 
 @Preview(showBackground = true)
 @Composable
 fun ResetPasswordPreview() {
     ResetPassword(navController = rememberNavController())
+}
+
+@Preview(showBackground = true)
+@Composable
+fun HomePagePreview() {
+    HomePage(navController = rememberNavController())
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun ChooseRoleScreenPreview() {
+    ChooseRoleScreen(navController = rememberNavController( ))
+}
+@Preview(showBackground = true)
+@Composable
+fun MosaicWelcomeScreenPreview() {
+    MosaicWelcomeScreen(navController = rememberNavController( ))
 }
